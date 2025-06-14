@@ -115,22 +115,22 @@ with col1:
             })
 
             col_b1 = st.columns(1)[0]
-            with col_b1:
-                st.dataframe(breakdown_df.style.format({'Jumlah': 'Rp {:,.0f}', 'Persentase': '{:.1f}%'}))
-
-            # Pie chart
-            fig_pie = go.Figure(data=[go.Pie(
-                labels=['Material'],
-                values=[material_cost],
-                hole=.3
-            )])
-
-            fig_pie.update_layout(
-                height=250,
-                margin=dict(t=0, b=0, l=0, r=0),
-                showlegend=True
-            )
-            st.plotly_chart(fig_pie, use_container_width=True)
+            # with col_b1:
+            #     st.dataframe(breakdown_df.style.format({'Jumlah': 'Rp {:,.0f}', 'Persentase': '{:.1f}%'}))
+            #
+            # # Pie chart
+            # fig_pie = go.Figure(data=[go.Pie(
+            #     labels=['Material'],
+            #     values=[material_cost],
+            #     hole=.3
+            # )])
+            #
+            # fig_pie.update_layout(
+            #     height=250,
+            #     margin=dict(t=0, b=0, l=0, r=0),
+            #     showlegend=True
+            # )
+            # st.plotly_chart(fig_pie, use_container_width=True)
 
             # Generate Q range for plotting the total cost function
             Q_range = np.linspace(1, optimal_Q * 2, 100)  # Range of production quantities
