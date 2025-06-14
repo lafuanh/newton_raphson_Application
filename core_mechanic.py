@@ -52,7 +52,7 @@ def newton_raphson(params: Dict[str, float], initial_guess: float, tolerance: fl
 
         # Store iteration data with higher precision
         iteration_history.append({
-            'Iterasi': i + 1,
+            'Iterasi': i,
             'Qn': Q,
             'TC\'(Q)': f_prime,
             'TC\'\'(Q)': f_double_prime,
