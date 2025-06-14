@@ -2,6 +2,9 @@ import numpy as np
 from typing import Tuple, List, Dict
 import streamlit as st
 
+# Set numpy print options for higher precision
+np.set_printoptions(precision=15)  # Increases the precision for numpy arrays and floats
+
 # Define advanced cost function with economies of scale
 def cost_function(Q: float, params: Dict[str, float]) -> float:
     """Calculate total cost for given production quantity Q with exponential decay term"""
@@ -32,6 +35,7 @@ def cost_second_derivative(Q: float, params: Dict[str, float]) -> float:
 def newton_raphson(params: Dict[str, float], initial_guess: float, tolerance: float, max_iter: int) -> Tuple[float, List[Dict], bool]:
     """Newton-Raphson method to find minimum cost for advanced cost function"""
     Q = initial_guess
+    prev_Q = Q  # Track the previous value of Q
     iteration_history = []
     converged = False
 
@@ -40,13 +44,20 @@ def newton_raphson(params: Dict[str, float], initial_guess: float, tolerance: fl
         f_prime = cost_derivative(Q, params)
         f_double_prime = cost_second_derivative(Q, params)
 
-        # Store iteration data
+        # Calculate the error (galat) as the difference in Q values
+        galat = abs(Q - prev_Q)
+
+        # Determine if the iteration meets the convergence criteria
+        ket = "Memenuhi" if abs(f_prime) < tolerance else "Tidak Memenuhi"
+
+        # Store iteration data with higher precision
         iteration_history.append({
-            'Iteration': i + 1,
-            'Q': Q,
-            'Cost': cost_function(Q, params),
-            "f'(Q)": f_prime,
-            "f''(Q)": f_double_prime
+            'Iterasi': i + 1,
+            'Qn': Q,
+            'TC\'(Q)': f_prime,
+            'TC\'\'(Q)': f_double_prime,
+            'Galat': galat,
+            'Ket': ket
         })
 
         # Check convergence
@@ -59,10 +70,11 @@ def newton_raphson(params: Dict[str, float], initial_guess: float, tolerance: fl
             st.warning("Second derivative too small, stopping iterations")
             break
 
+        prev_Q = Q  # Update previous Q
         Q = Q - f_prime / f_double_prime
 
         # Ensure Q remains positive
-        if Q <= 0:
-            Q = 1.0
+        # if Q <= 0:
+        #     Q = 1.0
 
     return Q, iteration_history, converged
