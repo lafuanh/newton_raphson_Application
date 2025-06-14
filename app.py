@@ -203,5 +203,5 @@ with col1:
     3. Lutfi Adi Prakoso  NIM 2304030148
     4. Naufal Adyatma     NIM 2304030174
 
-    Semoga aplikasi ini membantu dalam perhitungan optimasi biaya produksi!
+    Semoga aplikasi ini membantu dalam perhitungan optimasi jumlah produksi!
     """)
